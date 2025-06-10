@@ -30,4 +30,5 @@
 - How expressJS basically handles requests behind the scenes?
 - Diff b/w app.use and app.all?
 - Write a dummy auth middleware for admin?
-- Write a dummy auth middleware for User?
+- Write a dummy auth middleware for all User routes, except /user/login?
+- Error Handling using a app.use("/", (err, req, res, next) = {})
