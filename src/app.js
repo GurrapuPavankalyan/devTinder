@@ -4,7 +4,13 @@ const express = require('express');
 const app = express();
 
 app.get('/user', (req, res)=>{
-    res.send({"firstName": "Pavan Kalyan", "lastName": "Gurrapu"});
+    console.log(req.query);
+    res.send({firstName: "Pavan Kalyan", lastName: "Gurrapu"});
+});
+
+app.get('/user/:userId', (req, res)=>{
+    console.log(req.params);
+    res.send({firstName: "Pavan Kalyan", lastName: "Gurrapu"});
 });
 
 app.post('/user', (req, res)=>{
