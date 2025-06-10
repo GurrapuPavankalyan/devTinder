@@ -8,3 +8,15 @@
 - Install nodemon and update scripts inside package.json
 - What is the use of "-g" while npm install
 - Difference b/w caret and tilde ( ^ vs ~ )
+
+
+- Initialize git
+- make .gitignore file
+- Create a remote repo on github
+- Push all code to remote origin
+- Play with routes and route extensions ex: /hello, /hello/2
+- Order of the routes matters
+- Install Postman app and make a workspace/collections > test API call
+- Explore routing and use of ?, *, (), + in the routes
+- Use of regex in routes /a/, /.*fly$/
+- Reading the dynamic routes
