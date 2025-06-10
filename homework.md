@@ -20,3 +20,14 @@
 - Explore routing and use of ?, *, (), + in the routes
 - Use of regex in routes /a/, /.*fly$/
 - Reading the dynamic routes
+
+
+- Multipe Route Handlers - Play with the code
+- next()
+- next functions and errors along with res.send()
+- app.use('/user', rH, [rH2, rH3], rH4, rH5);
+- What is middleware? Why do we need it?
+- How expressJS basically handles requests behind the scenes?
+- Diff b/w app.use and app.all?
+- Write a dummy auth middleware for admin?
+- Write a dummy auth middleware for User?
