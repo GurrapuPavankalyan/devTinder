@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const validator = require("validator");
 
 const userSchema = new mongoose.Schema({
     userId: {
@@ -20,11 +21,21 @@ const userSchema = new mongoose.Schema({
         lowercase: true,
         required: true,
         unique: true,
-        trim: true
+        trim: true,
+        validate(value){
+            if(!validator.isEmail(value)){
+                throw new Error("Invalid email address:"+value);
+            }
+        },
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        validate(value){
+            if(!validator.isStrongPassword(value)){
+                throw new Error("Password is not strong:"+value);
+            }
+        }
     },
     age: {
         type: Number,
@@ -41,7 +52,12 @@ const userSchema = new mongoose.Schema({
     },
     photoUrl: {
         type: String,
-        default: "https://www.google.com/imgres?q=dummy%20user%20photo&imgurl=https%3A%2F%2Fpng.pngtree.com%2Fpng-vector%2F20190710%2Fourmid%2Fpngtree-user-vector-avatar-png-image_1541962.jpg&imgrefurl=https%3A%2F%2Fpngtree.com%2Fso%2Fdummy-image&docid=ktKl-Ggaa_M1wM&tbnid=0EwZuOY4GqQ0aM&vet=12ahUKEwiZ7fHxnvCNAxX1Q2cHHauLDNkQM3oECDgQAA..i&w=360&h=360&hcb=2&ved=2ahUKEwiZ7fHxnvCNAxX1Q2cHHauLDNkQM3oECDgQAA"
+        default: "https://www.google.com/imgres?q=dummy%20user%20photo&imgurl=https%3A%2F%2Fpng.pngtree.com%2Fpng-vector%2F20190710%2Fourmid%2Fpngtree-user-vector-avatar-png-image_1541962.jpg&imgrefurl=https%3A%2F%2Fpngtree.com%2Fso%2Fdummy-image&docid=ktKl-Ggaa_M1wM&tbnid=0EwZuOY4GqQ0aM&vet=12ahUKEwiZ7fHxnvCNAxX1Q2cHHauLDNkQM3oECDgQAA..i&w=360&h=360&hcb=2&ved=2ahUKEwiZ7fHxnvCNAxX1Q2cHHauLDNkQM3oECDgQAA",
+        validate(value) {
+            if(!validator.isURL(value)){
+                throw new Error("Invalid photo URL:"+value);
+            }
+        },
     },
     about: {
         type: String,
