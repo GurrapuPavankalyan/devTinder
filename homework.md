@@ -73,4 +73,11 @@
 - NEVER TRUST req.body
 
 
+- Validate data in SignUp API
+- Install bcrypt package
+- Create PasswordHash using bcrypt.hash & save the user with encrypted password
+- Create login API
+- Compare passwords and throw errors if email or password is invalid
+
+
 
