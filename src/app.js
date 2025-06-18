@@ -7,8 +7,13 @@ const User = require('./models/user');
 const { validateSignUpData } = require('./utils/validation');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
+const cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
+const { userAuth }= require('./middlewares/auth');
+
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.post('/signup', async (req, res) => {
 
@@ -44,17 +49,41 @@ app.post('/login', async (req, res) => {
         if(!user) {
             throw new Error("Email is not present");
         } 
-        const isPasswordValid = await bcrypt.compare(password, user.password);
+        const isPasswordValid = await user.validatePassword(password);
         
         if(isPasswordValid) {
-            res.send("Login successful!")
+            // Create JWT token
+            const token = await user.getJWT();
+            //const token = await jwt.sign({ _id: user._id }, "namaste@Dev122", { expiresIn: "1d"});
+
+            // Add the token to cookie and send the response back to user
+            res.cookie("token", token, {
+                expires: new Date(Date.now() + 8 * 3600000),
+            });
+            res.send("Login successful!");
         } else {
-            throw new Error("Password is not correct");
+            throw new Error("Invalid credentials");
         }
     } catch(err) {
         res.status(400).send("Error: "+err.message);
     }
+});
 
+app.get('/profile', userAuth, async (req, res) => {
+    try{
+        const user = req.user;
+        res.send(user);
+    } catch(err) {
+        res.status(400).send("Error: "+err.message);
+    }
+});
+
+app.post('/sendConnectionRequest', userAuth, async (req, res) => {
+    const user = req.user;
+    // sending a connection request
+    console.log("Sending a connection request");
+
+    res.send(user.firstName+" sent the connection request");
 });
 
 // Get User by EmailId
