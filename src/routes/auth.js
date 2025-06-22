@@ -41,7 +41,7 @@ authRouter.post('/login', async (req, res) => {
         if(!user) {
             throw new Error("Email is not present");
         } 
-        const isPasswordValid = await User.validatePassword(password);
+        const isPasswordValid = await user.validatePassword(password);
         
         if(isPasswordValid) {
             // Create JWT token

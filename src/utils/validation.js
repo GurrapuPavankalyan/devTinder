@@ -20,4 +20,13 @@ const validateEditProfileData = (req) => {
     return isEditValid;
 };
 
-module.exports = { validateSignUpData, validateEditProfileData };
+const validateEditProfilePassword = (req) => {
+    const { password } = req.body;
+    //console.log(password);
+    const isEditedPasswordValid = validator.isStrongPassword(password);
+    //console.log(isEditedPasswordValid);
+
+    return isEditedPasswordValid;
+};
+
+module.exports = { validateSignUpData, validateEditProfileData, validateEditProfilePassword };
